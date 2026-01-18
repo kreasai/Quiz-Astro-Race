@@ -4,22 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astro-Race: Asteroid Alert</title>
+    <!-- Tailwind CSS (Gunakan CDN untuk mempercepat setup tanpa instalasi lokal) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Polyfill untuk 'process' agar library Node.js tidak crash di browser -->
+    <script>
+      window.process = window.process || { env: { NODE_ENV: 'production' } };
+    </script>
+
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
       
       body {
         font-family: 'Rajdhani', sans-serif;
         background-color: #0f172a;
-        overflow: hidden; /* Prevent scrolling during game */
-        touch-action: none; /* Prevent zoom/scroll on touch devices */
+        overflow: hidden;
+        touch-action: none;
       }
       
       .font-display {
         font-family: 'Orbitron', sans-serif;
       }
 
-      /* Custom animations */
       @keyframes float {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-10px); }
@@ -44,6 +50,7 @@
 </head>
   <body>
     <div id="root"></div>
+    <!-- Entry point Vite harus menunjuk ke file TSX lokal -->
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
