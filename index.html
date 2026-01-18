@@ -5,20 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astro-Race: Asteroid Alert</title>
     
-    <!-- Error Logger: Menampilkan pesan error di layar jika aplikasi crash (Layar Putih) -->
-    <script>
-      window.onerror = function(message, source, lineno, colno, error) {
-        var errorContainer = document.createElement('div');
-        errorContainer.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); color:red; padding:20px; z-index:9999; font-family:monospace; overflow:auto;';
-        errorContainer.innerHTML = '<h3>CRITICAL ERROR (Check Console for details):</h3><pre>' + message + '\nAt: ' + source + ':' + lineno + '</pre>';
-        document.body.appendChild(errorContainer);
-      };
-    </script>
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Polyfill Process -->
+    <!-- Polyfill Process Environment -->
     <script>
       window.process = window.process || { env: { NODE_ENV: 'production' } };
     </script>
@@ -46,7 +36,6 @@
         animation: float 4s ease-in-out infinite;
       }
     </style>
-    <!-- IMPORTMAP TELAH DIHAPUS UNTUK MENCEGAH KONFLIK VITE -->
   <script type="importmap">
 {
   "imports": {
