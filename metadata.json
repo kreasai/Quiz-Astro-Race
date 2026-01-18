@@ -1,0 +1,5 @@
+{
+  "name": "Astro-Race: Asteroid Alert",
+  "description": "A fast-paced multiplayer split-screen space trivia game where players race against falling asteroids.",
+  "requestFramePermissions": []
+}
