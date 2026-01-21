@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { PlayerZone } from './components/PlayerZone';
-import { fetchQuestions } from './services/geminiService';
+import { fetchQuestions } from './services/geminiService'; // Logic sekarang lokal
 import { Question, GameStatus, PlayerState } from './types';
-import { QUESTIONS_TO_WIN } from './constants';
 
 const App: React.FC = () => {
   const [status, setStatus] = useState<GameStatus>(GameStatus.IDLE);
@@ -16,7 +15,6 @@ const App: React.FC = () => {
   // Check for mobile device on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      // Check if width is less than standard tablet portrait width (768px)
       setIsMobile(window.innerWidth < 768);
     };
     
@@ -28,13 +26,11 @@ const App: React.FC = () => {
   // Load questions
   const initializeGame = async () => {
     setStatus(GameStatus.LOADING);
-    setLoadingText("Memindai sektor data...");
+    setLoadingText("Menyiapkan bank soal...");
     
-    // Simulate a bit of "boot sequence" feel
+    // Fetch random local questions
     const q = await fetchQuestions();
     
-    // Ensure we have enough questions even if generator returned few
-    // by duplicating if strictly necessary, but geminiService handles fallback.
     setQuestions(q);
     
     setLoadingText("Sistem Siap.");
@@ -66,8 +62,6 @@ const App: React.FC = () => {
       endGame();
       return;
     }
-    
-    // Condition 3: One finished, other died (covered by cond 1)
   }, [p1State, p2State, status]);
 
   const endGame = () => {
@@ -80,7 +74,7 @@ const App: React.FC = () => {
     // Death logic
     if (!p1State.isAlive && p2State.isAlive) return { id: 2, reason: "Stasiun Pemain 1 Hancur" };
     if (!p2State.isAlive && p1State.isAlive) return { id: 1, reason: "Stasiun Pemain 2 Hancur" };
-    if (!p1State.isAlive && !p2State.isAlive) return { id: 0, reason: "Kehancuran Bersama" }; // Draw
+    if (!p1State.isAlive && !p2State.isAlive) return { id: 0, reason: "Kehancuran Bersama" };
 
     // Score logic (both alive and finished)
     if (p1State.score > p2State.score) return { id: 1, reason: "Skor Tertinggi" };
@@ -113,7 +107,6 @@ const App: React.FC = () => {
         <div className="absolute w-1 bg-white h-1 rounded-full top-10 left-20 animate-pulse"></div>
         <div className="absolute w-2 bg-blue-200 h-2 rounded-full top-1/4 left-3/4 opacity-50"></div>
         <div className="absolute w-1 bg-white h-1 rounded-full bottom-10 left-1/2"></div>
-        {/* Simple CSS radial gradient for deep space feel */}
         <div className="w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-[#0a0a1a] to-black"></div>
       </div>
 
